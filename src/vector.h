@@ -50,4 +50,54 @@ class vec3 {
 using point3 = vec3;
 using color  = vec3;
 
+inline bool operator==(const vec3& lhs, const vec3& rhs) {
+    return (lhs[0] == rhs[0]) && (lhs[1] == rhs[1]) && (lhs[2] == rhs[2]);
+}
+
+inline bool operator!=(const vec3& lhs, const vec3& rhs) {
+    return !(lhs == rhs);
+}
+
+inline vec3 operator+(vec3 lhs, const vec3& rhs) {
+    return lhs += rhs;
+}
+
+inline vec3 operator-(vec3 lhs, const vec3& rhs) {
+    return lhs += -rhs;
+}
+
+inline vec3 operator*(const vec3& lhs, const vec3& rhs) {
+    return vec3(lhs[0]*rhs[0], lhs[1]*rhs[1], lhs[2]*rhs[2]);
+}
+
+inline vec3 operator*(const double t, vec3 rhs) {
+    return rhs *= t;
+}
+
+inline vec3 operator*(vec3 lhs, const double t) {
+    return t * lhs;
+}
+
+inline vec3 operator/(vec3 lhs, const double t) {
+    return (1/t) * lhs;
+}
+
+inline std::ostream& operator<<(std::ostream& os, const vec3& rhs) {
+    return os << "<" << rhs[0] << ", " << rhs[1] << ", " << rhs[2] << ">";
+}
+
+inline double dot(const vec3& u, const vec3& v) {
+    return u[0]*v[0] + u[1]*v[1] + u[2]*v[2];
+}
+
+inline vec3 cross(const vec3& u, const vec3& v) {
+    return vec3( u.y()*v.z() - u.z()*v.y(),
+                 u.z()*v.x() - u.x()*v.z(),
+                 u.x()*v.y() - u.y()*v.x());
+}
+
+inline vec3 unit_vector(const vec3& v) {
+    return v / v.length();
+}
+
 #endif
